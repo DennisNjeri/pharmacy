@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\profile;
+use App\post;
 class ProfileController extends Controller
 {
     public function __construct(){
@@ -30,7 +31,9 @@ class ProfileController extends Controller
         
     }
     public function viewProfile(){
+        $userId=auth()->user()->id;
+        $results=Post::Where('user_id',$userId)->get();
 
-        return view('profile');
+        return view('profile')->with('posts',$results);
     }
 }

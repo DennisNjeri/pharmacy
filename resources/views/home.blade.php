@@ -20,6 +20,7 @@
                                  Add new Post
                             </button>
                         </li>
+                        <li class="list-group-item">Newsfeed</li>
                         <li class="list-group-item">Settings</li>
                     </ul>
                 

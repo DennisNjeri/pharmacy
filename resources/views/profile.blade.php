@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    @include('layouts.messages')
+    
     <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
         @include('layouts.messages')
             <div class="card">
                 <div class="card-header">
@@ -24,6 +24,29 @@
                             Explore
                             </button>
                         </div>
+                </div>
+            </div> 
+            <div class="card">
+                <div class="card-header">
+                    <h3>Your Posts</h3>
+                 
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                    @if(count($posts)>0)
+                        @foreach($posts as $post)
+                        <div class="col-md-4 pl-3">
+                           <a href="posts/{{$post->id}}"> <p class="pl-5">  {{ $post->caption }}</p></a>
+
+                            <div style="height:400px; width:320px;overflow: hidden;margin: 20px;">
+                            <a href="posts/{{$post->id}}"> 
+                            <img src="{{ URL::asset('/storage/'.$post->image) }}" alt="Imagery" class="img-responsive" style="width:100%">
+                            </a>
+                            </div>
+                          </div>
+                        @endforeach
+                    @endif
+                       
                 </div>
             </div> 
            </div>
