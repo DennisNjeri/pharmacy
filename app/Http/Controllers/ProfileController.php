@@ -12,19 +12,25 @@ class ProfileController extends Controller
     }
     public function createProfile(Request $request){
         //dd($request->all());
+        
        $data= $request->validate([
             'title'=>['required','string'],
             'description'=>['required','string'],
             'url'=>['required','string'],
         ]);
     //$profile = new Profile();
-   // $profile->title=$request->title;
-    //$profile->description=$request->description;
-    //$profile->link=$request->url;
+   // $profile->title=$request->input('title');
+    //$profile->description=$request->input('description');
+    //$profile->link=$request->input('url');
    // $profile->save();
      auth()->user()->profile()->create($data);
 
-     dd($request->all());
+     //dd($request->all());
+     return redirect("/home")->with('success','Profile created');
         
+    }
+    public function viewProfile(){
+
+        return view('profile');
     }
 }

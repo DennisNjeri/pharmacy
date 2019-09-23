@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\post;
 
 class PostController extends Controller
 {
@@ -39,7 +40,27 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data=$request->validate([
+            'caption'=>'required',
+            'description'=>'required',
+            
+        ]);
+        $filename=$request->file('image');
+        $filename1=$request->file('image2');
+        $filemodname="post_".auth()->user()->id.time().$filename->getClientOriginalName();
+        $filemodname1="post_".auth()->user()->id.time().$filename1->getClientOriginalName();
+        $image=$filename->storeAs('posts',$filemodname);
+        $image2=$filename1->storeAs('posts',$filemodname1);
+
+        $post= new Post();
+        $post->user_id=auth()->user()->id;
+        $post->caption=$request->input('caption');
+        $post->description=$request->input('description');
+        $post->image=$image;
+        $post->image2=$image2;
+        $post->save();
+        return view('home')->with('success','Post added Successfully');
+   
     }
 
     /**
