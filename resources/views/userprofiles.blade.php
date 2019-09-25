@@ -8,13 +8,13 @@
         @include('layouts.messages')
             <div class="card">
                 <div class="card-header">
-                    <h3>{!! Auth::user()->profile->title ?? 'Setup Your Profile to view profile info <a href="/home">Create Profile</a>' !!}</h3>
-                    <p>{{ Auth::user()->profile->description ?? Null }}</p>
+                <h3>{{ $user->profile()->first()->title }}</h3>
+                    <p>{{ $user->profile()->first()->description  }}</p>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">
-                            <p> {{ Auth::user()->posts->count()}} posts</p>
+                            <p> {{ $user->posts()->count()}} posts</p>
                         </div>
                         <div class="col-md-3">
                             <p> 23k following</p>
@@ -36,19 +36,19 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                    @if(count($posts)>0)
-                        @foreach($posts as $post)
+                   
+                        @foreach($user->posts as $post)
                         <div class="col-md-4 pl-3 pb-4">
-                           <a href="posts/{{$post->id}}"> <p class="pl-5">  {{ $post->caption }}</p></a>
+                           <a href="/posts/{{$post->id}}"> <p class="pl-5">  {{ $post->caption }}</p></a>
 
                             <div style="height:400px; width:320px;overflow: hidden;margin: 20px;">
-                            <a href="posts/{{$post->id}}"> 
+                            <a href="/posts/{{$post->id}}"> 
                             <img src="{{ URL::asset('/storage/'.$post->image) }}" alt="Imagery" class="img-responsive" style="width:100%">
                             </a>
                             </div>
                           </div>
                         @endforeach
-                    @endif
+                   
                        
                 </div>
             </div> 

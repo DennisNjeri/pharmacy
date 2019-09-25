@@ -8,11 +8,13 @@
         @include('layouts.messages')
             <div class="card">
                 <div class="card-header">
-                    <h3>{!! Auth::user()->profile->title ?? 'Setup Your Profile to view profile info <a href="/home">Create Profile</a>' !!}</h3>
-                    <p>{{ Auth::user()->profile->description ?? Null }}</p>
+                    <a href="/userprofiles/{{$post->user()->first()->id}}">
+                        <h3>{{ $post->user()->first()->username  }}</h3>
+                    </a>
                 </div>
                 <div class="card-body">
                     <div class="row">
+                    @if($post->user()->first()->id == Auth::user()->id)
                         <div class="col-md-4">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                             Update
@@ -25,6 +27,7 @@
                         </button>
                         </a>
                         </div>
+                    @endif    
                         <div class="col-md-4">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                             Explore

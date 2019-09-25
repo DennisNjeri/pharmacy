@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
 use App\post;
 
@@ -19,7 +20,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts=Post::orderBy('created_at','DESC')->get();
+        
+        return view('newsfeed')->with('posts',$posts);
     }
 
     /**
@@ -49,11 +52,16 @@ class PostController extends Controller
         $filename1=$request->file('image2');
         $filemodname="post_".auth()->user()->id.time().$filename->getClientOriginalName();
         $filemodname1="post_".auth()->user()->id.time().$filename1->getClientOriginalName();
-
-      // $path= $filename->storeAs('posts',$filemodname,'public');
-      // $path2= $filename1->storeAs('posts',$filemodname1,'public');
         $filename->move('storage/posts', $filemodname);
         $filename1->move('storage/posts', $filemodname1);
+
+     // $path= $filename->storeAs('posts',$filemodname,'public');
+      // $path2= $filename1->storeAs('posts',$filemodname1,'public');
+       
+        $formatImageOne=Image::make(storage_path('app/public/posts/'.$filemodname))->fit(1200,1200);
+        $formatImageTwo=Image::make(storage_path('app/public/posts/'.$filemodname1))->fit(1200,1200);
+        $formatImageOne->save();
+        $formatImageTwo->save();
         $image='posts/'.$filemodname;
         $image2='posts/'.$filemodname1;
         $post= new Post();
