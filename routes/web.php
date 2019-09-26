@@ -23,5 +23,7 @@ Route::post('/homepost', 'PostController@store')->name('createPost');
 Route::get('/posts/{postId}', 'PostController@show')->name('ViewPost');
 Route::get('/deleteposts/{postId}', 'PostController@destroy')->name('deletePost');
 Route::get('/posts', 'PostController@index')->name('allPosts');
-Route::get('/userprofiles/{userid}', 'PagesController@userProfile')->name('allPosts');
+Route::get('/userprofiles/{userid}', 'PagesController@userProfile')->name('Profiles');
+Route::get('/editProfile', 'ProfileController@editProfile')->name('editProfile');
+Route::patch('/editUserProfile/{user}', 'ProfileController@newm ')->name('editProfile');
 ?>

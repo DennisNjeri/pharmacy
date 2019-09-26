@@ -9,10 +9,10 @@
                 <div class="card-header">
 
                    <ul class="list-group flex-md-row">
-                        <li class="list-group-item">
-                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                        <li class="list-group-item"><a href="/editProfile">
+                            <button type="button" class="btn btn-primary" data-toggle="" data-target="">
                                  Update Profile
-                            </button>
+                            </button></a>
                         </li>
                         <li class="list-group-item"><a href="/profile">View Profile</a></li>
                         <li class="list-group-item"> 
@@ -41,7 +41,7 @@
                                 </button>
                             </div>
                         <div class="modal-body">
-                            <form method="post" action="{{ url('/home')}}">
+                            <form method="post" action="{{ url('/home')}}" enctype="multipart/form-data">
                               @csrf
                                 <div class="form-group">
                                      <label for="exampleInputEmail1">Title</label>
@@ -56,6 +56,10 @@
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">URL</label>
                                     <input type="text" name="url" class="form-control"  placeholder="Enter URL">
+                                </div>
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Image</label>
+                                    <input type="file" name="image" class="form-control"  placeholder="Enter image" >
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                           </form>

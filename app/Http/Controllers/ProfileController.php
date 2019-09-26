@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 use App\profile;
 use App\post;
+use App\User;
 class ProfileController extends Controller
 {
     public function __construct(){
@@ -18,15 +20,20 @@ class ProfileController extends Controller
             'title'=>['required','string'],
             'description'=>['required','string'],
             'url'=>['required','string'],
+            'image'=>''
         ]);
-    //$profile = new Profile();
-   // $profile->title=$request->input('title');
-    //$profile->description=$request->input('description');
-    //$profile->link=$request->input('url');
-   // $profile->save();
-     auth()->user()->profile()->create($data);
-
-     //dd($request->all());
+    
+        if (request('image')) {
+            $imagePath = request('image')->store('profile', 'public');
+            $image = Image::make(public_path("storage/{$imagePath}"))->fit(1000, 1000);
+            $image->save();
+            $imageArray = ['image' => $imagePath];
+        }
+        auth()->user()->profile->update(array_merge(
+            $data,
+            $imageArray ?? []
+        ));
+     
      return redirect("/home")->with('success','Profile created');
         
     }
@@ -36,4 +43,11 @@ class ProfileController extends Controller
 
         return view('profile')->with('posts',$results);
     }
+    public function editProfile(){
+        $profile=auth()->user()->profile();
+        //dd($profile);
+        return view('editView',compact('profile'));
+    }
+   
+    
 }

@@ -15,20 +15,27 @@
                 <div class="card-body">
                     <div class="row">
                     @if($post->user()->first()->id == Auth::user()->id)
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                             Update
                             </button>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                         <a href="/deleteposts/{{$post->id}}">
                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
                             Delete
                         </button>
                         </a>
                         </div>
-                    @endif    
-                        <div class="col-md-4">
+                    @endif  
+                    @if($post->user()->first()->id != Auth::user()->id)
+                       <div class="col-md-3">
+                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                              Follow
+                            </button>
+                        </div> 
+                        @endif  
+                        <div class="col-md-3">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
                             Explore
                             </button>

@@ -10,6 +10,7 @@
                 <div class="card-header">
                 <h3>{{ $user->profile()->first()->title }}</h3>
                     <p>{{ $user->profile()->first()->description  }}</p>
+                    <p><small>{{ $user->profile()->first()->url  }}</small></p>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -24,7 +25,7 @@
                         </div>
                         <div class="col-md-3">
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                            Explore
+                            Follow
                             </button>
                         </div>
                 </div>

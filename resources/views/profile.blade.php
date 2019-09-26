@@ -8,8 +8,18 @@
         @include('layouts.messages')
             <div class="card">
                 <div class="card-header">
-                    <h3>{!! Auth::user()->profile->title ?? 'Setup Your Profile to view profile info <a href="/home">Create Profile</a>' !!}</h3>
-                    <p>{{ Auth::user()->profile->description ?? Null }}</p>
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h3>{{ Auth::user()->username  }}</h3>
+                            <h5>{{ Auth::user()->profile->title  }}</h5>
+                            <div>{{ Auth::user()->profile->description ?? Null }}</div>
+                            <div><a href="./{{ Auth::user()->profile->url}}"><small>{{ Auth::user()->profile->url  }}</small></a></div>
+                            <p><a href="/editProfile">Edit Profile</a></p>
+                        </div> 
+                        <div class="col-md-4">
+                            <img src="{{Auth::user()->profile->profileImage()}} " alt="profile photo" class="rounded-circle" width="125px"> 
+                        </div>
+                    </div>   
                 </div>
                 <div class="card-body">
                     <div class="row">

@@ -11,9 +11,19 @@
         
             <div class="card ">
                 <div class="card-header">
-                    <a href="userprofiles/{{$post->user->id}}">
-                        <h5>User:{{ $post->user()->first()->username }}</h5>  
-                    </a>      
+                    
+                        <h5>
+                            <a  class="text-dark"href="userprofiles/{{$post->user->id}}">
+                            User:{{ $post->user()->first()->username }}
+                            </a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;
+                            @if( isset(Auth::user()->id))
+                            @if($post->user()->first()->id != Auth::user()->id)
+                            <a href="#">  Follow</a>
+                            @endif
+                            @endif
+                        </h5>  
+                        
                 </div>
                 <div class="card-body">      
                     <div class="card">
