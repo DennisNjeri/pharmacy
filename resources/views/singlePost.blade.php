@@ -30,9 +30,7 @@
                     @endif  
                     @if($post->user()->first()->id != Auth::user()->id)
                        <div class="col-md-3">
-                          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                              Follow
-                            </button>
+                       <follow-button user-id="{{ $post->user()->first()->id }}" follows="{{ $follows }}"></follow-button>
                         </div> 
                         @endif  
                         <div class="col-md-3">

@@ -15,18 +15,16 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-3">
-                            <p> {{ $user->posts()->count()}} posts</p>
+                            <p> {{ $postCount}} posts</p>
                         </div>
                         <div class="col-md-3">
-                            <p> 23k following</p>
+                            <p> {{ $followersCount}} Followers</p>
                         </div>
                         <div class="col-md-3">
-                            <p> 20k followers</p>
+                            <p>{{ $followingCount}} Following</p>
                         </div>
                         <div class="col-md-3">
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
-                            Follow
-                            </button>
+                            <follow-button user-id="{{ $user->id }}" follows="{{ $follows }}"></follow-button>
                         </div>
                 </div>
             </div> 

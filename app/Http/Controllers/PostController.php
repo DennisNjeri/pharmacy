@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
 use App\post;
+use App\User;
 
 class PostController extends Controller
 {
@@ -20,9 +21,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts=Post::orderBy('created_at','DESC')->get();
+        $user=User::all();
+        $users=auth()->user()->following()->pluck('profiles.user_id');
+        $posts=Post::whereIn('user_id',$users)->with('user')->latest()->paginate(5);
         
-        return view('newsfeed')->with('posts',$posts);
+       return view('usernewsfeed',compact('posts'));
     }
 
     /**
@@ -86,8 +89,8 @@ class PostController extends Controller
         //
         //dd($id);
         $post=Post::findorfail($id);
-
-        return view('singlePost')->with('post',$post);
+        $follows = (auth()->user()) ? auth()->user()->following->contains($post->user()->first()->id) : false;
+        return view('singlePost',compact('post','follows'));
     }
 
     /**
@@ -128,4 +131,5 @@ class PostController extends Controller
         Post::where('id',$id)->delete();
         return redirect('/profile')->with('success','Post deleted Successfully');
     }
+   
 }

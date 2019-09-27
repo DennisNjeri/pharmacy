@@ -1,10 +1,12 @@
 <?php
 
 namespace App;
-
+use App\Mail\NewUserEmail;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+
 
 class User extends Authenticatable
 {
@@ -36,18 +38,26 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    protected static function boot(){
+    protected static function boot()
+    {
         parent::boot();
         static::created(function($user){
             $user->profile()->create([
                 'title'=>$user->username,
-            ]);  
+            ]); 
+         Mail::to($user->email)->send(new NewUserEmail());       
         }); 
     }
-    public function profile(){
+    public function profile()
+    {
         return $this->hasOne(Profile::class);
     }
-    public function posts(){
+    public function posts()
+    {
         return $this->hasMany(Post::class)->orderBy('created_at','DESC');
+    }
+    public function following()
+    {
+        return $this->belongsToMany(Profile::class);
     }
 }

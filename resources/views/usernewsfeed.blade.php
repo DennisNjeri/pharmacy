@@ -19,7 +19,7 @@
                             &nbsp;&nbsp;&nbsp;&nbsp;
                             @if( isset(Auth::user()->id))
                             @if($post->user()->first()->id != Auth::user()->id)
-                            <a href="#">  Follow</a>
+                           
                             @endif
                             @endif
                         </h5>  
@@ -47,11 +47,11 @@
     </div>
  </div>
  <br><br><br>
- @endforeach 
+ @endforeach  
  <div class="row">
      <div class="col-md-12 d-flex justify-content-center">
         {{$posts->links()}}
      </div>
-</div>    
+</div>   
   </div>  
 @endsection    
